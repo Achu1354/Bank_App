@@ -1,0 +1,264 @@
+
+
+
+
+
+DATA BININDING IN ANGULAR
+...........................
+
+ts file >> Component
+html file >> View
+
+
+1.  ONE WAY BININDING
+    a) Component to View
+        - String interpollation  - Operator {{}}       {{data}}
+        - Property binding       - [propert]="value"       [placeholder]="data"
+
+    b) View to component
+        - Event binding         - (event_name)="fun/method name()"          -(click)="login()"
+        - Event binding using '$event'            (eventname)="methodname($event)"
+        - event biniding using template rendering variable #variable
+
+2.  TWO WAY BINDING 
+    a) ngmodel              [(ngmodel)]="value"
+                    FormsModule(has to be imported-3rd party library)(in app.nodule.ts)
+
+
+REDIRECTION IN ANGULAR
+...............................
+
+navigateByUrl       -   method used to Redirection
+router              -   class
+AppRoutingModule    -   Module
+
+
+    ***** Dependency Injection *****
+    ----------------------------------
+    >>>  to use a method of one class in another class
+        >>  the step is performed inside a constructor
+    
+    To use the method of Router class inside another class we need to perform Dependency Injection ,
+    for this we need to use Access Specifier(there is 2 - public and private)
+
+        Syntax -   constructor(private router:Router) { }
+                -   router - variable name
+                -   Router - Class containing the method , declared with private access specifier
+
+                access specifier variable : Classname
+
+
+
+    Angualr Services
+..........................
+Services can be accessed by any component
+
+{Angular Services perform tasks that are used by multiple components. They perform all the operational tasks for the components and avoid rewriting of code. 
+A service can be written once and injected into all the components that use that service. }
+
+
+while creating a component - a folder will be created along with 4 files-html,css,ts and ts config
+whereas while creating Service , automaticaly folder will not be created, we need to create it (near to the component folders in 'app folder')
+it will have 2 files- ts & ts config
+
+
+>> inside the folder, in terminal  >> 
+                   >>>>         ng g s Servicename       // Syntax to creates a service
+
+
+
+    Angular Directives
+...............................
+
+to manage DOM in  angular we use Angular Directives: 
+
+    1) Structural directive - to handel structured datas in view of a component
+
+            -ngFor  (this structural directive can be directly used/applied in HTML docs to access elemnts from array)
+
+    2) Component Directives - wheevr we create new comonent , it creat its own Html and css pages, these are auto loaded to DOM
+                                for this porpose to manage the components we use Component Directives
+    3) Attribute Directive -
+            -ngClass 
+
+
+
+
+    Form Validation In Angular
+.....................................
+Forms are created in 2 ways:
+                1) Template Driven Form
+                2) Model Driven Form
+
+* Template driven form - Forms created using HTML<form> tag, normal HTML Forms, Basic HTML validations can be used to validate form fields .
+Using NGmodel and other binding methods controls can be added to the forms,
+    But the data validation will be difficlut.
+
+* Model Driven Form - 
+        -Method used for creating Model driven form
+               Reactive form
+        -----------------------------
+            - ReactiveFormsModule    -    Module used to create Model driven form (this will be added in 'app.module.ts' in 'imports:' section)
+            - FormBuilder   -   Reactive form module's Class 
+                                the class will have a group, an array and control already inside it
+
+                                this class will be injected in the ts file of Form within in constructor(Private fb:FormBuilder)
+        inject dependency in ts file - declare form name and its group,array after the constructor - update the input value inside the function -
+        in HTml file, create the connection control using, '[FormGroup]' and value ='declared form name' - 
+
+
+    Validate Model Form
+................................
+
+ Validator - class used for validation. 
+                Inbuild class in Angular, it inclues all methods for validation
+
+    STEPS:
+    ~~~~~~~
+        + import 'Validators'class inside ts file
+        
+    * Methods:
+        ----------
+        Validators.required    to have non-empty value
+        Validators.pattern()   validates the value entered, the rule will be entered in '[]', 
+                                inside [] we provide regular expression, which is the rule for the string to be entered
+                            ^ :is not symbol, will excludes the rules
+                            for smallcase & uppercase(a-zA-z),the length can be defines(+  min count 1 max any,*   min 0 and max count any)
+                            ({5,10} say min count 5 and max count 10),for numbers(0-9)
+        
+        - [Validator.required, Validators.patter('[a-zA-z]+')]
+
+* Access Error in Validator rule
+----------------------------------
+        this.registerForm.get('uname')?.errors          // applying the rule to a field(eg:uname), and check the rule status using '.error'
+                (.errors     is not a method to check the error, it check the output of the rule applied or the status in the field)
+                the output from the rule will be : 1) VALID         - empty response in the field
+                                                    2) INVALID      - content, some content in field
+
+
+    Local Storage in Angular
+.....................................
+
+- Store     localStorage.setItem()
+- Access    localStorage.getItem()
+- Delete    localStorage.removeItem()
+
+
+PARENT CHILD COMPONENT COMMUNICATION IN ANGULAR
+................................................
+
+
+    CREATING A NEW Event
+...............................
+
+using child parent relation we wil create new event
+* we can create an event before the declaration of constructor
+* we need Event emitter class for creating a new Event
+    - we can create an object for eventEmitter class and use it to create a new event
+        (EventEmitter from Angular core)        >>>  class used to create user defined events
+
+    -> obj=new EventEmitter()
+            'obj' is the new object and this is our new event
+
+     - to start a new event we need to call emit()
+    -> this.obj.emit()       >>>  will start the new event
+
+- @Output() :   to pass/share data/event from child to parent we need to use OUtput Decarator (output binding)
+-   @Input()    :   to pass/share data/event from parent to child we use Input Decarator (input binding)
+
+            eg: -> @Output() onCancel=new EventEmitter()
+
+
+
+ >>>>> sharing any data between parent and child it can only be done  and shared inside Selector 4
+        <app-deleteconfirm [item]="acno" (onCancel)="oncancel()"> </app-deleteconfirm>
+        the method defined inside the event onCacel has to be defined in its ts file
+
+
+
+
+
+    Date & Time in angular
+...............................
+
+Date -  Class
+- create an object of Date class 
+
+
+
+Angular pipe  
+_______________
+:   Acts like a pipe...... it accepts input value, that data will be processed and returns output as a transformed data.
+Basically Pipe is used for data transformation into another format
+Eg-  DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, DecimalPipe, and PercentPipe.
+
+to install nodeModules /..........in cmd      .. "np i" statement wil install it
+
+
+
+CLIENT SERVER INTEGRATION
+--------------------------
+---------------------------
+
+http request creation
+---------------------
+
+HttpClientModule    - Module used in Angular 
+HttpClientModule    - Class
+
+        
+            1. The class has to be injected (dependency Injection) in the 'data.services.ts' inside the constructor
+                >> constructor(private http: HttpClient)
+            2. inside register(), Api call has to be created
+                >> register(acno: any, uname: any, psw: any) {
+                    const data = {
+                        acno, uname, psw 
+                        }
+                        return this.http.post('http://localhost:3000/register', data)
+
+                the port number is different for both angular and server so this post() is an asynchronous request, this makes the entire register() Assynchronous
+                thus this has to be solved while the register() is being call
+
+Assynchronous request in ts
+---------------------------
+
+js -    promise     --resolve  >>  then() 		//Promises handle one such event at a time 
+                    -- reject  >>  catch()
+
+ts -    observable  -- resolve >>  subscribe() 		//observables handle a sequence of events over some time
+                    -- reject  >>  catch()
+
+Rxjs    -   Library used to solve asynchronous code in ts (subscribe and observable is inside this library)
+    Reactive eXtension for js) (Inbuild library in ts, not required to import it)
+
+
+Append token in header of http request
+---------------------------------------
+
+* Creating header
+''''''''''''''''''''  HttpHeaders   -   Class for creating header, we can create a header object of this class and use it
+
+        >> let headers=new HttpHeaders()
+    
+    append token in headers object
+
+        >> headers.append('access-token',token)
+
+            3. 
+                import{HttpClientModule} from '@angular/common/http'
+
+---------------------------
+OVERLOADING A METHOD
+----------------------------
+
+Overloading can be done local or global
+* Global - Overloading done just belowthe import section, or outside class has global user
+* Local - Overloading done inside a class is local to that class
+
+        >> const option = {
+                // Global overloading headers
+                headers:new HttpHeaders()           //declared as a key to option
+            }
+
+while creating Headers we need to first overload it before creating
+

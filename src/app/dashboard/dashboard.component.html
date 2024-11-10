@@ -1,0 +1,61 @@
+<h3 style="color:rgb(185, 185, 61);">Welcome {{user}} </h3> {{dt |date:'short'}}
+<div>
+    <button class="btn btn-info me-2 float-end" type="submit" (click)="logout()">Logout</button>
+</div>
+<a routerLink="/transaction" class="rounded bgcolor-light border ">View transaction history</a>
+<!-- routerLink - hlp to link to another page,similar to <a href> -->
+
+<div class="mt-3">
+    <button class="btn btn-outline-danger float-end me-2 mt-2" (click)="deleteconfirm()">Delete</button>  <!--Delete button-->
+    <app-deleteconfirm [item]="acno" (onCancel)="oncancel()" (onDelete)="delete($event)"> </app-deleteconfirm>          <!-- calling Child component of dashboard component-->
+
+    <form [ngClass]=" acno ?'style':''" (ngSubmit)="deposit()" action="" [formGroup]="depositform" class=" border w-50 container p-3 rounded"
+        style="background-color: rgba(182, 162, 34, 0.338);">
+        <h1 class="text-center mb-3 text-light">Deposit form</h1>
+        <div class="p-2 mt-2">
+
+            <input type="text" id="acno" formControlName="acno" class="form-control" name="acno"
+                placeholder="Acccount number">
+        </div>
+        <div class="p-2 mt-2">
+
+            <input type="password" id="psw" formControlName="psw" class="form-control" name="psw"
+                placeholder="Password">
+        </div>
+        <div class="p-2 mt-2">
+
+            <input type="number" id="amnt" formControlName="amnt" class="form-control" name="amnt"
+                placeholder="Deposit amount">
+        </div>
+        <div class="p-2 mt-2 text-center">
+            <button class="btn btn-danger me-2" type="submit" >Deposit</button>
+
+        </div>
+    </form>
+</div>
+
+<div class="mt-4">
+
+    <form [ngClass]="acno?'style':''" action="" [formGroup]="withdrawform" class=" border w-50 container p-3 rounded"
+        style="background-color: rgba(69, 101, 17, 0.392);">
+        <h1 class="text-center mb-3 text-light">Withdraw form</h1>
+        <div class="p-2 mt-2">
+
+            <input type="text" id="acc" formControlName="acc" class="form-control" name="acc"
+                placeholder="Acccount number">
+        </div>
+        <div class="p-2 mt-2">
+
+            <input type="password" id="ps" formControlName="ps" class="form-control" name="ps" placeholder="Password">
+        </div>
+        <div class="p-2 mt-2">
+
+            <input type="number" id="wit" formControlName="wit" class="form-control" name="wit"
+                placeholder="Withdrawal amount">
+        </div>
+        <div class="p-2 mt-2 text-center">
+            <button class="btn btn-danger me-2" type="submit" (click)="withdraw()">Withdraw</button>
+
+        </div>
+    </form>
+</div>

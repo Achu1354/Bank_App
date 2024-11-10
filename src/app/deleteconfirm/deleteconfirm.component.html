@@ -1,0 +1,11 @@
+<div class="float-end mt-5 p-2 rounded border border-dark" *ngIf="item"
+style="background-color: rgba(55, 36, 15, 0.511); color: rgb(49, 34, 16); box-shadow: 2px 5px 8px 2px;">
+    <h6 class="text">
+        Are You Sure  <br>
+        You want to delete this account ? {{item}}
+    </h6>
+    <button (click)="delete()" class="btn btn-danger me-2">Yes</button>
+    <button (click)="cancel()" class="btn btn-danger me-4">No</button>
+    
+    
+</div>
